@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  final void Function(
+      String email,
+      String password
+      ) signInWithEmailAndPassword;
+  const LoginForm({Key? key, required this.signInWithEmailAndPassword}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -13,15 +17,20 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Form(
         key: _formKey,
         child: Column(
           children: [
             TextFormField(
-              validator: emailValidator,
+              controller: emailController,
+              validator: requiredValidator,
             ),
             TextFormField(
-              validator: emailValidator,
+              controller: passwordController,
+              validator: requiredValidator,
               obscureText: true,
             ),
 
@@ -30,8 +39,13 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+
+                    widget.signInWithEmailAndPassword(
+                      emailController.text,
+                      passwordController.text
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      const SnackBar(content: Text('s')),
                     );
                   }
                 },
@@ -43,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  String? emailValidator(String? value) {
+  String? requiredValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter some text';
     }

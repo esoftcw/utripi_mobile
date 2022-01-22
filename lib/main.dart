@@ -1,13 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:utripi/screens/AuthScreen.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/screens/add_new_trip_screen.dart';
+import 'package:utripi/screens/edit_profile_screen.dart';
+import 'package:utripi/screens/edit_trip_screen.dart';
+import 'package:utripi/screens/main_screen.dart';
+import 'package:utripi/screens/trip_details_screen.dart';
+import 'package:utripi/services/auth_service.dart';
+import 'firebase_options.dart';
+import 'dart:developer';
+
 
 import 'constant/colors.dart';
+import 'screens/auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const UTripi());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+      ChangeNotifierProvider(
+        create: (context) => AuthService(FirebaseAuth.instance),
+        builder: (context, _) => UTripi(),
+      ),
+  );
 }
 
 class UTripi extends StatelessWidget {
@@ -23,6 +42,12 @@ class UTripi extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const InitApp(),
+      routes: {
+        AddNewTrip.routeName: (ctx) => AddNewTrip(),
+        TripDetailsScreen.routeName: (ctx) => TripDetailsScreen(),
+        EditTripScreen.routeName: (ctx) => EditTripScreen(),
+        EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
+      },
     );
   }
 }
@@ -32,7 +57,15 @@ class InitApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Consumer<AuthService>(
+      builder: (_, authService, __ ) {
+        if (!authService.isLoggedIn) {
+          return AuthScreen();
+        }
+
+        return MainScreen();
+      },
+    );
   }
 
 
