@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class WizardButtons extends StatelessWidget {
+  final void Function()? onPress;
+
   const WizardButtons({
     Key? key,
     required this.controller,
     required this.cDuration,
     required this.cCurve,
+    this.onPress,
   }) : super(key: key);
 
   final PageController controller;
@@ -34,6 +37,9 @@ class WizardButtons extends StatelessWidget {
           ),
           onPressed: () {
             controller.nextPage(duration: cDuration, curve: cCurve);
+            if (onPress != null) {
+              onPress!();
+            }
           },
         )
       ],

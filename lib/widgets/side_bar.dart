@@ -1,3 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/auth_service.dart';
+
 import '/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +32,7 @@ class SideBar extends StatelessWidget {
                 ),
                 Divider(),
                 Text(
-                  'UserName',
+                  Provider.of<AuthService>(context, listen: false).userName,
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.05,
                     color: Colors.blueGrey,
@@ -38,7 +42,7 @@ class SideBar extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  'Email',
+                    Provider.of<AuthService>(context, listen: false).email,
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.05,
                     color: Colors.blueGrey,
@@ -63,6 +67,11 @@ class SideBar extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Profile'),
             onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Logout'),
+            onTap: () => { FirebaseAuth.instance.signOut() },
           ),
         ],
       ),

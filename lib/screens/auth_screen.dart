@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/services/auth_service.dart';
 import 'package:utripi/widgets/auth/login.dart';
+import 'package:utripi/widgets/auth/register.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +26,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     constraints: BoxConstraints(
                       minHeight: viewportConstraints.maxHeight,
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(50),
-                          child: LoginForm(signInWithEmailAndPassword: authService.login,),
-                        ),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(50),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          if (authService.authForm == AuthForm.Login)
+                            LoginForm(signInWithEmailAndPassword: authService.login,),
+                          if (authService.authForm == AuthForm.Register)
+                            RegisterForm(signUpWithEmailAndPassword: authService.register,),
+                          if (authService.authForm == AuthForm.Reset)
+                            LoginForm(signInWithEmailAndPassword: authService.login,),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -43,4 +50,3 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-

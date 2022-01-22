@@ -9,11 +9,8 @@ import 'package:utripi/screens/edit_trip_screen.dart';
 import 'package:utripi/screens/main_screen.dart';
 import 'package:utripi/screens/trip_details_screen.dart';
 import 'package:utripi/services/auth_service.dart';
+import 'package:utripi/services/database_service.dart';
 import 'firebase_options.dart';
-import 'dart:developer';
-
-
-import 'constant/colors.dart';
 import 'screens/auth_screen.dart';
 
 void main() async {
@@ -22,10 +19,17 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-      ChangeNotifierProvider(
-        create: (context) => AuthService(FirebaseAuth.instance),
-        builder: (context, _) => UTripi(),
-      ),
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => AuthService(FirebaseAuth.instance),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => DatabaseService(),
+            ),
+          ],
+        child: UTripi(),
+      )
   );
 }
 

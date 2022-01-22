@@ -2,6 +2,8 @@ import '/widgets/wizard_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'dart:developer';
+
 class AddNewTripWidget1 extends StatelessWidget {
   AddNewTripWidget1(
       {required this.controller,
@@ -46,7 +48,13 @@ class AddNewTripWidget1 extends StatelessWidget {
               height: MediaQuery.of(context).size.width * 0.2,
             ),
             WizardButtons(
-                controller: controller, cDuration: cDuration, cCurve: cCurve)
+                controller: controller,
+                cDuration: cDuration,
+                cCurve: cCurve,
+                onPress: () {
+                  log("called");
+                },
+            )
           ],
         ),
       ),
