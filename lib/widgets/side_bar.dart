@@ -59,11 +59,6 @@ class SideBar extends StatelessWidget {
                 {Navigator.of(context).pushNamed(MainScreen.routeName)},
           ),
           ListTile(
-            leading: Icon(Icons.color_lens),
-            title: Text('Apperences'),
-            onTap: () => {},
-          ),
-          ListTile(
             leading: Icon(Icons.person),
             title: Text('Profile'),
             onTap: () => {Navigator.of(context).pop()},
