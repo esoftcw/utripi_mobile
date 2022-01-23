@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:utripi/models/auth/auth_form_oparation.dart';
 import 'package:utripi/services/auth_service.dart';
 import 'package:utripi/widgets/auth/login.dart';
 import 'package:utripi/widgets/auth/register.dart';
@@ -32,12 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          if (authService.authForm == AuthForm.Login)
-                            LoginForm(signInWithEmailAndPassword: authService.login,),
-                          if (authService.authForm == AuthForm.Register)
-                            RegisterForm(signUpWithEmailAndPassword: authService.register,),
-                          if (authService.authForm == AuthForm.Reset)
-                            LoginForm(signInWithEmailAndPassword: authService.login,),
+                            renderForm(authService)
                         ],
                       ),
                     ),
@@ -49,4 +45,13 @@ class _AuthScreenState extends State<AuthScreen> {
       )
     );
   }
+
+  Widget renderForm(AuthService authService) {
+   return authService.authForm.when(
+       login: () => LoginForm(signInWithEmailAndPassword: authService.login,),
+       register: () => RegisterForm(signUpWithEmailAndPassword: authService.register,),
+       reset: () => LoginForm(signInWithEmailAndPassword: authService.login,),
+   );
+  }
 }
+
