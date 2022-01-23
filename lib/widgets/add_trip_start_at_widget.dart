@@ -1,9 +1,13 @@
+import 'package:provider/provider.dart';
+import 'package:utripi/services/auth_service.dart';
+import 'package:utripi/services/database_service.dart';
+import 'package:utripi/services/trip_service.dart';
 import 'package:utripi/widgets/wizard_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddNewTripWidget2 extends StatefulWidget {
-  AddNewTripWidget2(
+class AddTripStartAtWidget extends StatefulWidget {
+  AddTripStartAtWidget(
       {required this.controller,
       required this.cDuration,
       required this.cCurve});
@@ -13,10 +17,10 @@ class AddNewTripWidget2 extends StatefulWidget {
   var cCurve;
 
   @override
-  State<AddNewTripWidget2> createState() => _AddNewTripWidget2State();
+  State<AddTripStartAtWidget> createState() => _AddTripStartAtWidgetState();
 }
 
-class _AddNewTripWidget2State extends State<AddNewTripWidget2> {
+class _AddTripStartAtWidgetState extends State<AddTripStartAtWidget> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedStartingDate = DateTime.now();
@@ -119,7 +123,14 @@ class _AddNewTripWidget2State extends State<AddNewTripWidget2> {
             WizardButtons(
                 controller: widget.controller,
                 cDuration: widget.cDuration,
-                cCurve: widget.cCurve),
+                cCurve: widget.cCurve,
+                onPress: () {
+                  // Test code,
+                   Provider.of<TripBuilderService>(context, listen: false).setStartAt(selectedStartingDate);
+                  // var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
+                  // Provider.of<DatabaseService>(context, listen: false).createTrip(trip);
+                },
+            ),
           ],
         )),
       ),

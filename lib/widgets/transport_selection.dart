@@ -18,36 +18,42 @@ const List<Choice> choices = const <Choice>[
 ];
 
 class TransportSelection extends StatelessWidget {
-  const TransportSelection({required this.choice});
+  const TransportSelection({required this.choice, required this.onSelect});
   final Choice choice;
+  final Function onSelect;
 
   @override
   Widget build(BuildContext context) {
     // final TextStyle? textStyle = Theme.of(context).textTheme.button;
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Icon(
-                  choice.icon,
+      child: InkWell(
+        onTap: () {
+          onSelect(choice.title);
+        },
+        child: Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Icon(
+                    choice.icon,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Text(
-                  choice.title,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    choice.title,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

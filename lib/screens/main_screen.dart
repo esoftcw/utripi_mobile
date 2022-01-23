@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/auth_service.dart';
+import 'package:utripi/services/trip_service.dart';
 import 'add_new_trip_screen.dart';
 import '/widgets/trip_list.dart';
 import '/widgets/flexible_space_widget.dart';
@@ -60,6 +63,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          var uid = Provider.of<AuthService>(context, listen: false).user!.uid;
+          Provider.of<TripBuilderService>(context, listen: false).init(uid);
           Navigator.of(context).pushNamed(AddNewTrip.routeName);
         },
         icon: Icon(Icons.add),

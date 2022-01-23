@@ -10,6 +10,7 @@ import 'package:utripi/screens/main_screen.dart';
 import 'package:utripi/screens/trip_details_screen.dart';
 import 'package:utripi/services/auth_service.dart';
 import 'package:utripi/services/database_service.dart';
+import 'package:utripi/services/trip_service.dart';
 import 'firebase_options.dart';
 import 'screens/auth_screen.dart';
 import 'widgets/auth/reset_password_screen.dart';
@@ -27,6 +28,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => DatabaseService(),
       ),
+      Provider<TripBuilderService>(create: (context) => TripBuilderService())
     ],
     child: UTripi(),
   ));
