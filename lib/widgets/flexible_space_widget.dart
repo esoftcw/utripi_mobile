@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/auth_service.dart';
 import 'dart:convert';
 import '/util/string_extensions.dart';
 import 'package:geolocator/geolocator.dart';
@@ -72,25 +74,6 @@ class _FlexibleSpaceBackgroundState extends State<FlexibleSpaceBackground> {
     return weather;
   }
 
-  var userNameText = RichText(
-    text: TextSpan(
-      style: const TextStyle(
-        fontSize: 14.0,
-        color: Colors.black,
-      ),
-      children: <TextSpan>[
-        TextSpan(
-          text: 'Hello ',
-          style: const TextStyle(fontSize: 20),
-        ),
-        TextSpan(
-          text: 'Hutto!',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-      ],
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -112,7 +95,26 @@ class _FlexibleSpaceBackgroundState extends State<FlexibleSpaceBackground> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    userNameText,
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.black,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Hello ',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          TextSpan(
+                            text:
+                                ("${Provider.of<AuthService>(context, listen: false).userName}!"),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
                     Text(
                       greetingMessage(),
                       style: TextStyle(fontSize: 24),

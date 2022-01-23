@@ -4,22 +4,20 @@ import 'package:utripi/services/auth_service.dart';
 import 'package:utripi/util/validators/email_validator.dart';
 import 'package:utripi/util/validators/required_validator.dart';
 
+import '../login_carousel_slider_signup.dart';
+
 class RegisterForm extends StatefulWidget {
+  final void Function(String name, String email, String password)
+      signUpWithEmailAndPassword;
 
-  final void Function(
-      String name,
-      String email,
-      String password
-      ) signUpWithEmailAndPassword;
-
-  const RegisterForm({Key? key, required this.signUpWithEmailAndPassword}) : super(key: key);
+  const RegisterForm({Key? key, required this.signUpWithEmailAndPassword})
+      : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,52 +30,69 @@ class _RegisterFormState extends State<RegisterForm> {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              decoration: InputDecoration(label: Text("Name")),
-              controller: nameController,
-              validator: emailValidator,
-            ),
-            TextFormField(
-              decoration: InputDecoration(label: Text("Email")),
-              controller: emailController,
-              validator: emailValidator,
-            ),
-            TextFormField(
-              decoration: InputDecoration(label: Text("Password")),
-              controller: passwordController,
-              validator: requiredValidator,
-              obscureText: true,
-            ),
-
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    widget.signUpWithEmailAndPassword(
-                        nameController.text,
-                        emailController.text,
-                        passwordController.text
-                    );
-                  }
-                },
-                child: const Text('Create account'),
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'UTripi',
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 38,
+                      color: Colors.blue[500],
+                    ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Provider.of<AuthService>(context, listen: false).loginForm();
-                },
-                child: const Text('Already have account?'),
-              ),
+            LoginCarouselSliderSignUp(),
+            const SizedBox(
+              height: 15,
+            ),
+            Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(label: Text("Name")),
+                  controller: nameController,
+                  validator: emailValidator,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(label: Text("Email")),
+                  controller: emailController,
+                  validator: emailValidator,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(label: Text("Password")),
+                  controller: passwordController,
+                  validator: requiredValidator,
+                  obscureText: true,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      widget.signUpWithEmailAndPassword(nameController.text,
+                          emailController.text, passwordController.text);
+                    }
+                  },
+                  child: const Text('Sign Up'),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    Provider.of<AuthService>(context, listen: false)
+                        .loginForm();
+                  },
+                  child: const Text('Already have account?'),
+                ),
+              ],
             ),
           ],
-        )
-    );
+        ));
   }
-
-
-
 }

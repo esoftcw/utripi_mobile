@@ -18,19 +18,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-      MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => AuthService(FirebaseAuth.instance),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => DatabaseService(),
-            ),
-          ],
-        child: UTripi(),
-      )
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => AuthService(FirebaseAuth.instance),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => DatabaseService(),
+      ),
+    ],
+    child: UTripi(),
+  ));
 }
 
 class UTripi extends StatelessWidget {
@@ -44,6 +42,7 @@ class UTripi extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Lato',
       ),
       home: const InitApp(),
       routes: {
@@ -62,7 +61,7 @@ class InitApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthService>(
-      builder: (_, authService, __ ) {
+      builder: (_, authService, __) {
         if (!authService.isLoggedIn) {
           return AuthScreen();
         }
@@ -71,8 +70,4 @@ class InitApp extends StatelessWidget {
       },
     );
   }
-
-
 }
-
-
