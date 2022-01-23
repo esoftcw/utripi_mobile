@@ -8,7 +8,6 @@ class ResetPasswordForm extends StatefulWidget {
 }
 
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -34,8 +33,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               ),
             )
           ],
-        )
-    );
+        ));
   }
 
   String? emailValidator(String? value) {
@@ -44,5 +42,4 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
     }
     return null;
   }
-
 }

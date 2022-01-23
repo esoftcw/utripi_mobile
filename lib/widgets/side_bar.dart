@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import '/screens/edit_profile_screen.dart';
 import 'package:utripi/services/auth_service.dart';
-
 import '/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +61,9 @@ class SideBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              {Navigator.of(context).pushNamed(EditProfileScreen.routeName)},
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout),

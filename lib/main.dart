@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/screens/add_new_trip_screen.dart';
@@ -12,6 +12,7 @@ import 'package:utripi/services/auth_service.dart';
 import 'package:utripi/services/database_service.dart';
 import 'firebase_options.dart';
 import 'screens/auth_screen.dart';
+import 'widgets/auth/reset_password_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,7 @@ class UTripi extends StatelessWidget {
         TripDetailsScreen.routeName: (ctx) => TripDetailsScreen(),
         EditTripScreen.routeName: (ctx) => EditTripScreen(),
         EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
+        ResetPasswordFormScreen.routeName: (ctx) => ResetPasswordFormScreen(),
       },
     );
   }
