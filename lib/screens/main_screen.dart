@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    'Your Trips',
+                    'My Trips',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
                   ),
@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
           Navigator.of(context).pushNamed(AddNewTrip.routeName);
         },
         icon: Icon(Icons.add),
-        label: Text("Add a Trip"),
+        label: Text("New Trip"),
       ),
     );
   }
