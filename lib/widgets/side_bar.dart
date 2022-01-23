@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import '/screens/edit_profile_screen.dart';
 import 'package:utripi/services/auth_service.dart';
-
 import '/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class SideBar extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'UTrip',
+                  'UTripi',
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.10,
                     color: Colors.blue,
@@ -42,7 +42,7 @@ class SideBar extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                    Provider.of<AuthService>(context, listen: false).email,
+                  Provider.of<AuthService>(context, listen: false).email,
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.05,
                     color: Colors.blueGrey,
@@ -59,19 +59,16 @@ class SideBar extends StatelessWidget {
                 {Navigator.of(context).pushNamed(MainScreen.routeName)},
           ),
           ListTile(
-            leading: Icon(Icons.color_lens),
-            title: Text('Apperences'),
-            onTap: () => {},
-          ),
-          ListTile(
             leading: Icon(Icons.person),
             title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              {Navigator.of(context).pushNamed(EditProfileScreen.routeName)},
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Logout'),
-            onTap: () => { FirebaseAuth.instance.signOut() },
+            onTap: () => {FirebaseAuth.instance.signOut()},
           ),
         ],
       ),
