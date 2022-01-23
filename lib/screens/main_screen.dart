@@ -24,11 +24,11 @@ class _MainScreenState extends State<MainScreen> {
           SliverAppBar(
             actions: [
               IconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(EditProfileScreen.routeName);
-                  },
-                  icon: Icon(Icons.person))
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(EditProfileScreen.routeName);
+                },
+              ),
             ],
             iconTheme: IconThemeData(
               color: Colors.black,
