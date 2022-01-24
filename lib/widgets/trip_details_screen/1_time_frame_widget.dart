@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
 
 class TimeFrameWidget extends StatelessWidget {
   const TimeFrameWidget({
@@ -7,6 +10,8 @@ class TimeFrameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,7 +51,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '04:00 hrs',
+                            '${DateFormat("h:m").format(trip.startAt!)} hrs',
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -66,7 +71,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '02/02/2022',
+                            DateFormat("d/m/y").format(trip.startAt!),
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -105,7 +110,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '04:00 hrs',
+                            '${DateFormat("h:m").format(trip.endAt!)} hrs',
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -125,7 +130,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '02/02/2022',
+                            DateFormat("d/m/y").format(trip.endAt!),
                             style: TextStyle(
                               fontSize: 17,
                             ),

@@ -1,5 +1,6 @@
 import 'package:google_place/google_place.dart';
 import 'package:provider/provider.dart';
+import 'package:utripi/services/google_place_service.dart';
 import 'package:utripi/services/trip_service.dart';
 
 import '/widgets/wizard_buttons.dart';
@@ -29,7 +30,7 @@ class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
   @override
   void initState() {
     //TODO move to .env
-    googlePlace = GooglePlace("AIzaSyDLEcoEk1LlGVsFHVN0EKALRAtcOyNbaIE");
+    googlePlace = GooglePlaceService.instance.googlePlace;
     super.initState();
   }
 
@@ -90,10 +91,7 @@ class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
                     return ListTile(
                       title: Text(predictions![index].description!),
                       onTap: () {
-                        Provider.of<TripBuilderService>(context, listen: false).endLocation(
-                            predictions![index].description!,
-                            predictions![index].placeId!
-                        );
+                        setSelectionLocation(predictions![index].placeId!);
                         _locationTextController.text = predictions![index].description!;
                         setState(() {
                           predictions = [];
@@ -120,5 +118,10 @@ class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
         predictions = result.predictions;
       });
     }
+  }
+
+  void setSelectionLocation(String placeId) async {
+    var location = await GooglePlaceService.instance.getLocation(placeId);
+    Provider.of<TripBuilderService>(context, listen: false).endLocation(location);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:utripi/models/trip/location.dart';
 import 'package:utripi/models/trip/trip.dart';
 
 class TripBuilderService {
@@ -21,12 +22,12 @@ class TripBuilderService {
       _trip = _trip!.copyWith(startAt: startAt);
     }
 
-    void startLocation(String startLocation, String placeId) {
-      _trip = _trip!.copyWith(startLocation: startLocation, startPlaceId: placeId);
+    void startLocation(Location startLocation) {
+      _trip = _trip!.copyWith(startLocation: startLocation);
     }
 
-    void endLocation(String endLocation, String placeId) {
-      _trip = _trip!.copyWith(endLocation: endLocation, endPlaceId: placeId);
+    void endLocation(Location endLocation) {
+      _trip = _trip!.copyWith(endLocation: endLocation);
     }
 
     void setHeadCount(int headCount) {
@@ -36,4 +37,8 @@ class TripBuilderService {
     void setTransportMode(String transportMode) {
       _trip = _trip!.copyWith(transportMode: transportMode);
     }
+
+    // Future<Trip> build() async {
+    //   return _trip;
+    // }
 }

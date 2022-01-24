@@ -27,10 +27,8 @@ class _$TripTearOff {
       String? name,
       DateTime? startAt,
       DateTime? endAt,
-      String? startLocation,
-      String? startPlaceId,
-      String? endLocation,
-      String? endPlaceId,
+      Location? startLocation,
+      Location? endLocation,
       int? headCount,
       String? transportMode}) {
     return _Trip(
@@ -39,9 +37,7 @@ class _$TripTearOff {
       startAt: startAt,
       endAt: endAt,
       startLocation: startLocation,
-      startPlaceId: startPlaceId,
       endLocation: endLocation,
-      endPlaceId: endPlaceId,
       headCount: headCount,
       transportMode: transportMode,
     );
@@ -61,10 +57,8 @@ mixin _$Trip {
   String? get name => throw _privateConstructorUsedError;
   DateTime? get startAt => throw _privateConstructorUsedError;
   DateTime? get endAt => throw _privateConstructorUsedError;
-  String? get startLocation => throw _privateConstructorUsedError;
-  String? get startPlaceId => throw _privateConstructorUsedError;
-  String? get endLocation => throw _privateConstructorUsedError;
-  String? get endPlaceId => throw _privateConstructorUsedError;
+  Location? get startLocation => throw _privateConstructorUsedError;
+  Location? get endLocation => throw _privateConstructorUsedError;
   int? get headCount => throw _privateConstructorUsedError;
   String? get transportMode => throw _privateConstructorUsedError;
 
@@ -82,12 +76,13 @@ abstract class $TripCopyWith<$Res> {
       String? name,
       DateTime? startAt,
       DateTime? endAt,
-      String? startLocation,
-      String? startPlaceId,
-      String? endLocation,
-      String? endPlaceId,
+      Location? startLocation,
+      Location? endLocation,
       int? headCount,
       String? transportMode});
+
+  $LocationCopyWith<$Res>? get startLocation;
+  $LocationCopyWith<$Res>? get endLocation;
 }
 
 /// @nodoc
@@ -105,9 +100,7 @@ class _$TripCopyWithImpl<$Res> implements $TripCopyWith<$Res> {
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? startLocation = freezed,
-    Object? startPlaceId = freezed,
     Object? endLocation = freezed,
-    Object? endPlaceId = freezed,
     Object? headCount = freezed,
     Object? transportMode = freezed,
   }) {
@@ -131,19 +124,11 @@ class _$TripCopyWithImpl<$Res> implements $TripCopyWith<$Res> {
       startLocation: startLocation == freezed
           ? _value.startLocation
           : startLocation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      startPlaceId: startPlaceId == freezed
-          ? _value.startPlaceId
-          : startPlaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Location?,
       endLocation: endLocation == freezed
           ? _value.endLocation
           : endLocation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      endPlaceId: endPlaceId == freezed
-          ? _value.endPlaceId
-          : endPlaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Location?,
       headCount: headCount == freezed
           ? _value.headCount
           : headCount // ignore: cast_nullable_to_non_nullable
@@ -153,6 +138,28 @@ class _$TripCopyWithImpl<$Res> implements $TripCopyWith<$Res> {
           : transportMode // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
+  }
+
+  @override
+  $LocationCopyWith<$Res>? get startLocation {
+    if (_value.startLocation == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.startLocation!, (value) {
+      return _then(_value.copyWith(startLocation: value));
+    });
+  }
+
+  @override
+  $LocationCopyWith<$Res>? get endLocation {
+    if (_value.endLocation == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.endLocation!, (value) {
+      return _then(_value.copyWith(endLocation: value));
+    });
   }
 }
 
@@ -166,12 +173,15 @@ abstract class _$TripCopyWith<$Res> implements $TripCopyWith<$Res> {
       String? name,
       DateTime? startAt,
       DateTime? endAt,
-      String? startLocation,
-      String? startPlaceId,
-      String? endLocation,
-      String? endPlaceId,
+      Location? startLocation,
+      Location? endLocation,
       int? headCount,
       String? transportMode});
+
+  @override
+  $LocationCopyWith<$Res>? get startLocation;
+  @override
+  $LocationCopyWith<$Res>? get endLocation;
 }
 
 /// @nodoc
@@ -190,9 +200,7 @@ class __$TripCopyWithImpl<$Res> extends _$TripCopyWithImpl<$Res>
     Object? startAt = freezed,
     Object? endAt = freezed,
     Object? startLocation = freezed,
-    Object? startPlaceId = freezed,
     Object? endLocation = freezed,
-    Object? endPlaceId = freezed,
     Object? headCount = freezed,
     Object? transportMode = freezed,
   }) {
@@ -216,19 +224,11 @@ class __$TripCopyWithImpl<$Res> extends _$TripCopyWithImpl<$Res>
       startLocation: startLocation == freezed
           ? _value.startLocation
           : startLocation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      startPlaceId: startPlaceId == freezed
-          ? _value.startPlaceId
-          : startPlaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Location?,
       endLocation: endLocation == freezed
           ? _value.endLocation
           : endLocation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      endPlaceId: endPlaceId == freezed
-          ? _value.endPlaceId
-          : endPlaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Location?,
       headCount: headCount == freezed
           ? _value.headCount
           : headCount // ignore: cast_nullable_to_non_nullable
@@ -242,7 +242,8 @@ class __$TripCopyWithImpl<$Res> extends _$TripCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_Trip extends _Trip {
   _$_Trip(
       {required this.uid,
@@ -250,9 +251,7 @@ class _$_Trip extends _Trip {
       this.startAt,
       this.endAt,
       this.startLocation,
-      this.startPlaceId,
       this.endLocation,
-      this.endPlaceId,
       this.headCount,
       this.transportMode})
       : super._();
@@ -268,13 +267,9 @@ class _$_Trip extends _Trip {
   @override
   final DateTime? endAt;
   @override
-  final String? startLocation;
+  final Location? startLocation;
   @override
-  final String? startPlaceId;
-  @override
-  final String? endLocation;
-  @override
-  final String? endPlaceId;
+  final Location? endLocation;
   @override
   final int? headCount;
   @override
@@ -282,7 +277,7 @@ class _$_Trip extends _Trip {
 
   @override
   String toString() {
-    return 'Trip(uid: $uid, name: $name, startAt: $startAt, endAt: $endAt, startLocation: $startLocation, startPlaceId: $startPlaceId, endLocation: $endLocation, endPlaceId: $endPlaceId, headCount: $headCount, transportMode: $transportMode)';
+    return 'Trip(uid: $uid, name: $name, startAt: $startAt, endAt: $endAt, startLocation: $startLocation, endLocation: $endLocation, headCount: $headCount, transportMode: $transportMode)';
   }
 
   @override
@@ -297,11 +292,7 @@ class _$_Trip extends _Trip {
             const DeepCollectionEquality()
                 .equals(other.startLocation, startLocation) &&
             const DeepCollectionEquality()
-                .equals(other.startPlaceId, startPlaceId) &&
-            const DeepCollectionEquality()
                 .equals(other.endLocation, endLocation) &&
-            const DeepCollectionEquality()
-                .equals(other.endPlaceId, endPlaceId) &&
             const DeepCollectionEquality().equals(other.headCount, headCount) &&
             const DeepCollectionEquality()
                 .equals(other.transportMode, transportMode));
@@ -315,9 +306,7 @@ class _$_Trip extends _Trip {
       const DeepCollectionEquality().hash(startAt),
       const DeepCollectionEquality().hash(endAt),
       const DeepCollectionEquality().hash(startLocation),
-      const DeepCollectionEquality().hash(startPlaceId),
       const DeepCollectionEquality().hash(endLocation),
-      const DeepCollectionEquality().hash(endPlaceId),
       const DeepCollectionEquality().hash(headCount),
       const DeepCollectionEquality().hash(transportMode));
 
@@ -338,10 +327,8 @@ abstract class _Trip extends Trip {
       String? name,
       DateTime? startAt,
       DateTime? endAt,
-      String? startLocation,
-      String? startPlaceId,
-      String? endLocation,
-      String? endPlaceId,
+      Location? startLocation,
+      Location? endLocation,
       int? headCount,
       String? transportMode}) = _$_Trip;
   _Trip._() : super._();
@@ -357,13 +344,9 @@ abstract class _Trip extends Trip {
   @override
   DateTime? get endAt;
   @override
-  String? get startLocation;
+  Location? get startLocation;
   @override
-  String? get startPlaceId;
-  @override
-  String? get endLocation;
-  @override
-  String? get endPlaceId;
+  Location? get endLocation;
   @override
   int? get headCount;
   @override

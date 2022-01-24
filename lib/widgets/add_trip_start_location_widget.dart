@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/services/database_service.dart';
+import 'package:utripi/services/google_place_service.dart';
 import 'package:utripi/services/trip_service.dart';
 import '/widgets/wizard_buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -63,8 +64,7 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
 
   @override
   void initState() {
-    //TODO move to .env
-    googlePlace = GooglePlace("AIzaSyDLEcoEk1LlGVsFHVN0EKALRAtcOyNbaIE");
+    googlePlace = GooglePlaceService.instance.googlePlace;
     super.initState();
   }
 
@@ -126,10 +126,7 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
                       return ListTile(
                         title: Text(predictions![index].description!),
                         onTap: () {
-                          Provider.of<TripBuilderService>(context, listen: false).startLocation(
-                              predictions![index].description!,
-                              predictions![index].placeId!
-                          );
+                          setSelectionLocation(predictions![index].placeId!);
                           _locationTextController.text = predictions![index].description!;
                           setState(() {
                             predictions = [];
@@ -158,5 +155,10 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
         predictions = result.predictions;
       });
     }
+  }
+
+  void setSelectionLocation(String placeId) async {
+    var location = await GooglePlaceService.instance.getLocation(placeId);
+    Provider.of<TripBuilderService>(context, listen: false).startLocation(location);
   }
 }
