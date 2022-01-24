@@ -71,12 +71,6 @@ class SideBar extends StatelessWidget {
             title: Text('Logout'),
             onTap: () => {FirebaseAuth.instance.signOut()},
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Temp Trip Details Route'),
-            onTap: () =>
-                {Navigator.of(context).pushNamed(TripDetailsScreen.routeName)},
-          ),
         ],
       ),
     );
