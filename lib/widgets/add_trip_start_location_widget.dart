@@ -68,7 +68,6 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +118,8 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .2,
-                child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: ListView.builder(
                     itemCount: predictions!.length,
                     itemBuilder: (context, index) {
@@ -127,19 +127,23 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
                         title: Text(predictions![index].description!),
                         onTap: () {
                           setSelectionLocation(predictions![index].placeId!);
-                          _locationTextController.text = predictions![index].description!;
-                          setState(() {
-                            predictions = [];
-                          });
+                          _locationTextController.text =
+                              predictions![index].description!;
+                          setState(
+                            () {
+                              predictions = [];
+                            },
+                          );
                         },
                       );
                     },
                   ),
                 ),
               ),
-
               WizardButtons(
-                  controller: widget.controller, cDuration: widget.cDuration, cCurve: widget.cCurve,
+                controller: widget.controller,
+                cDuration: widget.cDuration,
+                cCurve: widget.cCurve,
               ),
             ],
           ),
@@ -159,6 +163,7 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
 
   void setSelectionLocation(String placeId) async {
     var location = await GooglePlaceService.instance.getLocation(placeId);
-    Provider.of<TripBuilderService>(context, listen: false).startLocation(location);
+    Provider.of<TripBuilderService>(context, listen: false)
+        .startLocation(location);
   }
 }
