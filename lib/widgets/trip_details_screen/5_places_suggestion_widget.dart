@@ -125,9 +125,9 @@ class _PlacesSugestionWidgetState extends State<PlacesSugestionWidget> {
         Location(lat: trip.endLocation!.lat, lng: trip.endLocation!.lon), 500,
         type: "sights", keyword: "sights");
 
-        if (mounted) {
+        if (places != null  && mounted) {
           setState(() {
-            _places = places!.results!;
+            _places = places.results!;
           });
         }
   }
