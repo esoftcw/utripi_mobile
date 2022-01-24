@@ -71,7 +71,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            DateFormat("d/m/y").format(trip.startAt!),
+                            DateFormat("d/M/y").format(trip.startAt!),
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -130,7 +130,7 @@ class TimeFrameWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            DateFormat("d/m/y").format(trip.endAt!),
+                            DateFormat("d/M/y").format(trip.endAt!),
                             style: TextStyle(
                               fontSize: 17,
                             ),
