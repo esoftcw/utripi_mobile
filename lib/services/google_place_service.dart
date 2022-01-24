@@ -17,7 +17,9 @@ class GooglePlaceService {
 
   Future<DetailsResult?> getDetails(String placeId) async {
     var response = await googlePlace.details.get(placeId);
-    return response!.result;
+    if (response != null) {
+      response.result;
+    }
   }
 
   Future<Uint8List?> getPhoto(String photoReference, int width, int height) async {
