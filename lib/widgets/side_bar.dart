@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:utripi/screens/trip_details_screen.dart';
 import '/screens/edit_profile_screen.dart';
 import 'package:utripi/services/auth_service.dart';
 import '/screens/main_screen.dart';
