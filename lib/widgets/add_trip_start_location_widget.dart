@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/services/database_service.dart';
+import 'package:utripi/services/google_place_service.dart';
 import 'package:utripi/services/trip_service.dart';
 import '/widgets/wizard_buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,14 +18,6 @@ class AddStartLocationWidget extends StatefulWidget {
   PageController controller;
   var cDuration;
   var cCurve;
-
-  @override
-  State<AddStartLocationWidget> createState() => _AddStartLocationWidgetState();
-}
-
-class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
-  final _formKey = GlobalKey<FormState>();
-  final _locationTextController = TextEditingController();
 
   static Future<Position> getLocationCoordinates() async {
     bool serviceEnabled;
@@ -53,20 +46,28 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks[0];
-    cityName = '${place.locality} , ${place.country}';
+    cityName = '${place.locality}';
     print(place.locality);
     return cityName;
   }
+
+  @override
+  State<AddStartLocationWidget> createState() => _AddStartLocationWidgetState();
+}
+
+class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
+  final _formKey = GlobalKey<FormState>();
+  final _locationTextController = TextEditingController();
 
   late GooglePlace googlePlace;
   List<AutocompletePrediction>? predictions = [];
 
   @override
   void initState() {
-    //TODO move to .env
-    googlePlace = GooglePlace("AIzaSyDLEcoEk1LlGVsFHVN0EKALRAtcOyNbaIE");
+    googlePlace = GooglePlaceService.instance.googlePlace;
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,24 +117,6 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      child: Text("Get Current Location"),
-                      onPressed: () async {
-                        Position position = await getLocationCoordinates();
-                        String cityName =
-                            await getAddressFromCoordinates(position);
-                        _locationTextController.text = cityName;
-                      },
-                    )
-                  ],
-                ),
-              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .2,
                 child: Expanded(
@@ -143,12 +126,8 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
                       return ListTile(
                         title: Text(predictions![index].description!),
                         onTap: () {
-                          Provider.of<TripBuilderService>(context,
-                                  listen: false)
-                              .startLocation(predictions![index].description!,
-                                  predictions![index].placeId!);
-                          _locationTextController.text =
-                              predictions![index].description!;
+                          setSelectionLocation(predictions![index].placeId!);
+                          _locationTextController.text = predictions![index].description!;
                           setState(() {
                             predictions = [];
                           });
@@ -158,10 +137,9 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
                   ),
                 ),
               ),
+
               WizardButtons(
-                controller: widget.controller,
-                cDuration: widget.cDuration,
-                cCurve: widget.cCurve,
+                  controller: widget.controller, cDuration: widget.cDuration, cCurve: widget.cCurve,
               ),
             ],
           ),
@@ -177,5 +155,10 @@ class _AddStartLocationWidgetState extends State<AddStartLocationWidget> {
         predictions = result.predictions;
       });
     }
+  }
+
+  void setSelectionLocation(String placeId) async {
+    var location = await GooglePlaceService.instance.getLocation(placeId);
+    Provider.of<TripBuilderService>(context, listen: false).startLocation(location);
   }
 }
