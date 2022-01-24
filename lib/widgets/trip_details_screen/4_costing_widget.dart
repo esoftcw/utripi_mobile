@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
 
 class CostingWidget extends StatelessWidget {
   const CostingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
+    int day = trip.endAt!.difference(trip.startAt!).inDays;
+    int meal = trip.headCount! * day;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Costing",
+            "Estimated Costing",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
           ),
         ),
@@ -44,7 +50,7 @@ class CostingWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '3 Pax',
+                            '${trip.headCount} Pax',
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -83,7 +89,7 @@ class CostingWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '6',
+                            '${meal}',
                             style: TextStyle(
                               fontSize: 17,
                             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
 
 class LocationDetailsWidget extends StatefulWidget {
   const LocationDetailsWidget({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class LocationDetailsWidget extends StatefulWidget {
 class _LocationDetailsWidgetState extends State<LocationDetailsWidget> {
   @override
   Widget build(BuildContext context) {
+    var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,7 +50,7 @@ class _LocationDetailsWidgetState extends State<LocationDetailsWidget> {
                           width: 8,
                         ),
                         Text(
-                          'Panadura',
+                          trip.startLocation!.name,
                           style: TextStyle(
                             fontSize: 15,
                           ),
@@ -83,7 +86,7 @@ class _LocationDetailsWidgetState extends State<LocationDetailsWidget> {
                           width: 8,
                         ),
                         Text(
-                          'Negombo',
+                          trip.endLocation!.name,
                           style: TextStyle(
                             fontSize: 15,
                           ),

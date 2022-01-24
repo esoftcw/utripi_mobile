@@ -18,8 +18,8 @@ class TripBuilderService {
       _trip = _trip!.copyWith(startAt: startAt);
     }
 
-    void setEndAt(DateTime startAt) {
-      _trip = _trip!.copyWith(startAt: startAt);
+    void setEndAt(DateTime endAt) {
+      _trip = _trip!.copyWith(endAt: endAt);
     }
 
     void startLocation(Location startLocation) {
