@@ -38,6 +38,18 @@ class TripBuilderService {
       _trip = _trip!.copyWith(transportMode: transportMode);
     }
 
+    void setDistance(num distance) {
+      _trip = _trip!.copyWith(distance: distance);
+    }
+
+    void setTravelTime(num travelTime) {
+      _trip = _trip!.copyWith(travelTime: travelTime);
+    }
+
+    void setTrip(Trip trip) {
+      _trip = trip;
+    }
+
     // Future<Trip> build() async {
     //   return _trip;
     // }

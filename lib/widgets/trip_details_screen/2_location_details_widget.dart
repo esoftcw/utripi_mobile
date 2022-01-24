@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/services/trip_service.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+
 
 class LocationDetailsWidget extends StatefulWidget {
   const LocationDetailsWidget({Key? key}) : super(key: key);
@@ -139,7 +141,7 @@ class _LocationDetailsWidgetState extends State<LocationDetailsWidget> {
                     Row(
                       children: [
                         Text(
-                          '100 KM',
+                          '${trip.distance} KM',
                           style: TextStyle(
                             fontSize: 18,
                           ),
@@ -168,7 +170,7 @@ class _LocationDetailsWidgetState extends State<LocationDetailsWidget> {
                     Row(
                       children: [
                         Text(
-                          'Aprox. 4 Hours',
+                          'Aprox. ${trip.travelTime} Hours',
                           style: TextStyle(
                             fontSize: 15,
                           ),

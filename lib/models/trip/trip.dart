@@ -21,6 +21,8 @@ class Trip with _$Trip {
       Location? endLocation,
       int? headCount,
       String? transportMode,
+      num? distance,
+      num? travelTime,
       }) = _Trip;
 
   factory Trip.fromJson(Map<String, dynamic> json) => _$TripFromJson(json);

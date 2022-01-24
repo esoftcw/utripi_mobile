@@ -30,7 +30,9 @@ class _$TripTearOff {
       Location? startLocation,
       Location? endLocation,
       int? headCount,
-      String? transportMode}) {
+      String? transportMode,
+      num? distance,
+      num? travelTime}) {
     return _Trip(
       uid: uid,
       name: name,
@@ -40,6 +42,8 @@ class _$TripTearOff {
       endLocation: endLocation,
       headCount: headCount,
       transportMode: transportMode,
+      distance: distance,
+      travelTime: travelTime,
     );
   }
 
@@ -61,6 +65,8 @@ mixin _$Trip {
   Location? get endLocation => throw _privateConstructorUsedError;
   int? get headCount => throw _privateConstructorUsedError;
   String? get transportMode => throw _privateConstructorUsedError;
+  num? get distance => throw _privateConstructorUsedError;
+  num? get travelTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -79,7 +85,9 @@ abstract class $TripCopyWith<$Res> {
       Location? startLocation,
       Location? endLocation,
       int? headCount,
-      String? transportMode});
+      String? transportMode,
+      num? distance,
+      num? travelTime});
 
   $LocationCopyWith<$Res>? get startLocation;
   $LocationCopyWith<$Res>? get endLocation;
@@ -103,6 +111,8 @@ class _$TripCopyWithImpl<$Res> implements $TripCopyWith<$Res> {
     Object? endLocation = freezed,
     Object? headCount = freezed,
     Object? transportMode = freezed,
+    Object? distance = freezed,
+    Object? travelTime = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -137,6 +147,14 @@ class _$TripCopyWithImpl<$Res> implements $TripCopyWith<$Res> {
           ? _value.transportMode
           : transportMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as num?,
+      travelTime: travelTime == freezed
+          ? _value.travelTime
+          : travelTime // ignore: cast_nullable_to_non_nullable
+              as num?,
     ));
   }
 
@@ -176,7 +194,9 @@ abstract class _$TripCopyWith<$Res> implements $TripCopyWith<$Res> {
       Location? startLocation,
       Location? endLocation,
       int? headCount,
-      String? transportMode});
+      String? transportMode,
+      num? distance,
+      num? travelTime});
 
   @override
   $LocationCopyWith<$Res>? get startLocation;
@@ -203,6 +223,8 @@ class __$TripCopyWithImpl<$Res> extends _$TripCopyWithImpl<$Res>
     Object? endLocation = freezed,
     Object? headCount = freezed,
     Object? transportMode = freezed,
+    Object? distance = freezed,
+    Object? travelTime = freezed,
   }) {
     return _then(_Trip(
       uid: uid == freezed
@@ -237,6 +259,14 @@ class __$TripCopyWithImpl<$Res> extends _$TripCopyWithImpl<$Res>
           ? _value.transportMode
           : transportMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as num?,
+      travelTime: travelTime == freezed
+          ? _value.travelTime
+          : travelTime // ignore: cast_nullable_to_non_nullable
+              as num?,
     ));
   }
 }
@@ -253,7 +283,9 @@ class _$_Trip extends _Trip {
       this.startLocation,
       this.endLocation,
       this.headCount,
-      this.transportMode})
+      this.transportMode,
+      this.distance,
+      this.travelTime})
       : super._();
 
   factory _$_Trip.fromJson(Map<String, dynamic> json) => _$$_TripFromJson(json);
@@ -274,10 +306,14 @@ class _$_Trip extends _Trip {
   final int? headCount;
   @override
   final String? transportMode;
+  @override
+  final num? distance;
+  @override
+  final num? travelTime;
 
   @override
   String toString() {
-    return 'Trip(uid: $uid, name: $name, startAt: $startAt, endAt: $endAt, startLocation: $startLocation, endLocation: $endLocation, headCount: $headCount, transportMode: $transportMode)';
+    return 'Trip(uid: $uid, name: $name, startAt: $startAt, endAt: $endAt, startLocation: $startLocation, endLocation: $endLocation, headCount: $headCount, transportMode: $transportMode, distance: $distance, travelTime: $travelTime)';
   }
 
   @override
@@ -295,7 +331,10 @@ class _$_Trip extends _Trip {
                 .equals(other.endLocation, endLocation) &&
             const DeepCollectionEquality().equals(other.headCount, headCount) &&
             const DeepCollectionEquality()
-                .equals(other.transportMode, transportMode));
+                .equals(other.transportMode, transportMode) &&
+            const DeepCollectionEquality().equals(other.distance, distance) &&
+            const DeepCollectionEquality()
+                .equals(other.travelTime, travelTime));
   }
 
   @override
@@ -308,7 +347,9 @@ class _$_Trip extends _Trip {
       const DeepCollectionEquality().hash(startLocation),
       const DeepCollectionEquality().hash(endLocation),
       const DeepCollectionEquality().hash(headCount),
-      const DeepCollectionEquality().hash(transportMode));
+      const DeepCollectionEquality().hash(transportMode),
+      const DeepCollectionEquality().hash(distance),
+      const DeepCollectionEquality().hash(travelTime));
 
   @JsonKey(ignore: true)
   @override
@@ -330,7 +371,9 @@ abstract class _Trip extends Trip {
       Location? startLocation,
       Location? endLocation,
       int? headCount,
-      String? transportMode}) = _$_Trip;
+      String? transportMode,
+      num? distance,
+      num? travelTime}) = _$_Trip;
   _Trip._() : super._();
 
   factory _Trip.fromJson(Map<String, dynamic> json) = _$_Trip.fromJson;
@@ -351,6 +394,10 @@ abstract class _Trip extends Trip {
   int? get headCount;
   @override
   String? get transportMode;
+  @override
+  num? get distance;
+  @override
+  num? get travelTime;
   @override
   @JsonKey(ignore: true)
   _$TripCopyWith<_Trip> get copyWith => throw _privateConstructorUsedError;

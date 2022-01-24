@@ -11,6 +11,17 @@ class DatabaseService extends ChangeNotifier {
     return snapshots.map((snapshot) => Trip.fromJson(snapshot.docs));
   }*/
 
+  Future<List<Trip>> getTrip(String uid) async {
+    var rawTrip = await FirebaseFirestore.instance
+                .collection('trips')
+                .where('uid', isEqualTo: uid)
+                .get();
+
+   return rawTrip.docs.map((doc) {
+     return Trip.fromJson(doc.data());
+    }).toList();
+  }
+
   String _tripCollection(String uid) {
     return "trips";
   }

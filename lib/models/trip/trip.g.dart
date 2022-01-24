@@ -23,6 +23,8 @@ _$_Trip _$$_TripFromJson(Map<String, dynamic> json) => _$_Trip(
           : Location.fromJson(json['endLocation'] as Map<String, dynamic>),
       headCount: json['headCount'] as int?,
       transportMode: json['transportMode'] as String?,
+      distance: json['distance'] as num?,
+      travelTime: json['travelTime'] as num?,
     );
 
 Map<String, dynamic> _$$_TripToJson(_$_Trip instance) => <String, dynamic>{
@@ -34,4 +36,6 @@ Map<String, dynamic> _$$_TripToJson(_$_Trip instance) => <String, dynamic>{
       'endLocation': instance.endLocation?.toJson(),
       'headCount': instance.headCount,
       'transportMode': instance.transportMode,
+      'distance': instance.distance,
+      'travelTime': instance.travelTime,
     };

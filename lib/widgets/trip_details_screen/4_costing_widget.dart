@@ -1,15 +1,31 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utripi/services/trip_service.dart';
 
-class CostingWidget extends StatelessWidget {
+class CostingWidget extends StatefulWidget {
   const CostingWidget({Key? key}) : super(key: key);
+
+  @override
+  State<CostingWidget> createState() => _CostingWidgetState();
+}
+
+class _CostingWidgetState extends State<CostingWidget> {
+  RemoteConfig remoteConfig = RemoteConfig.instance;
+
+  @override
+  void initState() {
+    remoteConfig.fetchAndActivate();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
     int day = trip.endAt!.difference(trip.startAt!).inDays;
     int meal = trip.headCount! * day;
+   // int cost = remoteConfig.getValue('cph_bus').asInt();
+    int cost = 20;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +187,7 @@ class CostingWidget extends StatelessWidget {
                             width: 8,
                           ),
                           Text(
-                            '46000/=',
+                            '${cost}',
                             style: TextStyle(
                               fontSize: 17,
                             ),

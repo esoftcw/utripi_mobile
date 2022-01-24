@@ -99,8 +99,8 @@ class _AddTripTransportModeState extends State<AddTripTransportMode> {
                   ),
                   onPressed: ()  {
                     Provider.of<TripBuilderService>(context, listen: false).setTransportMode(_selectedTransportMode);
-                    // var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
-                    // Provider.of<DatabaseService>(context, listen: false).createTrip(trip);
+                     var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
+                     Provider.of<DatabaseService>(context, listen: false).createTrip(trip);
                     Navigator.of(context)
                         .pushNamed(TripDetailsScreen.routeName);
                   },
