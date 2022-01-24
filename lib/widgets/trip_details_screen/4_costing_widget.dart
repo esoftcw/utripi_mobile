@@ -11,19 +11,17 @@ class CostingWidget extends StatefulWidget {
 }
 
 class _CostingWidgetState extends State<CostingWidget> {
-  RemoteConfig remoteConfig = RemoteConfig.instance;
 
   @override
   void initState() {
-    remoteConfig.fetchAndActivate();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
-    int day = trip.endAt!.difference(trip.startAt!).inDays;
-    int meal = trip.headCount! * day;
+    int days = trip.endAt!.difference(trip.startAt!).inDays;
+    int? meal = days == 0 ? trip.headCount : trip.headCount! * days;
    // int cost = remoteConfig.getValue('cph_bus').asInt();
     int cost = 20;
 
