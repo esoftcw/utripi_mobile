@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:utripi/screens/trip_details_screen.dart';
 import '/screens/edit_profile_screen.dart';
 import 'package:utripi/services/auth_service.dart';
 import '/screens/main_screen.dart';
@@ -69,6 +70,12 @@ class SideBar extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () => {FirebaseAuth.instance.signOut()},
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Temp Trip Details Route'),
+            onTap: () =>
+                {Navigator.of(context).pushNamed(TripDetailsScreen.routeName)},
           ),
         ],
       ),
