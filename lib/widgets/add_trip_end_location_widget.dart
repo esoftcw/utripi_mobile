@@ -17,7 +17,8 @@ class AddTripEndLocationWidget extends StatefulWidget {
   var cCurve;
 
   @override
-  State<AddTripEndLocationWidget> createState() => _AddTripEndLocationWidgetState();
+  State<AddTripEndLocationWidget> createState() =>
+      _AddTripEndLocationWidgetState();
 }
 
 class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
@@ -61,49 +62,53 @@ class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
                 padding: const EdgeInsets.all(50),
                 child: Form(
                   key: _formKey,
-                    child: TextFormField(
-                      controller: _locationTextController,
-                      decoration: const InputDecoration(
-                        icon: const Icon(Icons.location_on_rounded),
-                        hintText: 'End Location',
-                        labelText: 'End Location',
-                      ),
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          autoCompleteSearch(value);
-                        } else {
-                          if (predictions!.length > 0 && mounted) {
-                            setState(() {
-                              predictions = [];
-                            });
-                          }
-                        }
-                      },
+                  child: TextFormField(
+                    controller: _locationTextController,
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.location_on_rounded),
+                      hintText: 'End Location',
+                      labelText: 'End Location',
                     ),
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        autoCompleteSearch(value);
+                      } else {
+                        if (predictions!.length > 0 && mounted) {
+                          setState(() {
+                            predictions = [];
+                          });
+                        }
+                      }
+                    },
+                  ),
                 ),
               ),
               SizedBox(
-              height: MediaQuery.of(context).size.height * .2,
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: predictions!.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(predictions![index].description!),
-                      onTap: () {
-                        setSelectionLocation(predictions![index].placeId!);
-                        _locationTextController.text = predictions![index].description!;
-                        setState(() {
-                          predictions = [];
-                        });
-                      },
-                    );
-                  },
+                height: MediaQuery.of(context).size.height * .2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: ListView.builder(
+                    itemCount: predictions!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(predictions![index].description!),
+                        onTap: () {
+                          setSelectionLocation(predictions![index].placeId!);
+                          _locationTextController.text =
+                              predictions![index].description!;
+                          setState(() {
+                            predictions = [];
+                          });
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
               WizardButtons(
-                  controller: widget.controller, cDuration: widget.cDuration, cCurve: widget.cCurve),
+                  controller: widget.controller,
+                  cDuration: widget.cDuration,
+                  cCurve: widget.cCurve),
             ],
           ),
         ),
@@ -122,6 +127,7 @@ class _AddTripEndLocationWidgetState extends State<AddTripEndLocationWidget> {
 
   void setSelectionLocation(String placeId) async {
     var location = await GooglePlaceService.instance.getLocation(placeId);
-    Provider.of<TripBuilderService>(context, listen: false).endLocation(location);
+    Provider.of<TripBuilderService>(context, listen: false)
+        .endLocation(location);
   }
 }
