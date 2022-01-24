@@ -1,11 +1,15 @@
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
+import 'package:utripi/util/validators/required_validator.dart';
+
 import '/widgets/wizard_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'dart:developer';
 
-class AddNewTripWidget1 extends StatelessWidget {
-  AddNewTripWidget1(
+class AddTripNameWidget extends StatelessWidget {
+  AddTripNameWidget(
       {required this.controller,
       required this.cDuration,
       required this.cCurve});
@@ -16,6 +20,8 @@ class AddNewTripWidget1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tripNameTextController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add a New Trip'),
@@ -37,6 +43,7 @@ class AddNewTripWidget1 extends StatelessWidget {
               child: Form(
                 key: _formKey,
                 child: TextFormField(
+                  controller: tripNameTextController,
                   decoration: const InputDecoration(
                     prefixIcon: const Icon(Icons.add_location_rounded),
                     labelText: 'Trip Name',
@@ -52,7 +59,9 @@ class AddNewTripWidget1 extends StatelessWidget {
                 cDuration: cDuration,
                 cCurve: cCurve,
                 onPress: () {
-                  log("called");
+                  Provider
+                      .of<TripBuilderService>(context, listen: false)
+                      .setName(tripNameTextController.text);
                 },
             )
           ],

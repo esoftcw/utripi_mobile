@@ -1,11 +1,15 @@
+import 'package:provider/provider.dart';
+import 'package:utripi/services/database_service.dart';
+import 'package:utripi/services/trip_service.dart';
+
 import '/screens/trip_details_screen.dart';
 import '/widgets/wizard_buttons.dart';
 import '/widgets/transport_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddNewTripWidget7 extends StatelessWidget {
-  AddNewTripWidget7(
+class AddTripTransportMode extends StatefulWidget {
+  AddTripTransportMode(
       {required this.controller,
       required this.cDuration,
       required this.cCurve});
@@ -13,7 +17,14 @@ class AddNewTripWidget7 extends StatelessWidget {
   PageController controller;
   var cDuration;
   var cCurve;
+
+  @override
+  State<AddTripTransportMode> createState() => _AddTripTransportModeState();
+}
+
+class _AddTripTransportModeState extends State<AddTripTransportMode> {
   final _formKey = GlobalKey<FormState>();
+  String _selectedTransportMode = "Car";
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +61,14 @@ class AddNewTripWidget7 extends StatelessWidget {
                 choices.length,
                 (index) {
                   return Center(
-                    child: TransportSelection(choice: choices[index]),
+                    child: TransportSelection(
+                        choice: choices[index],
+                        onSelect: (value) {
+                          setState(() {
+                            _selectedTransportMode = value;
+                          });
+                        },
+                    ),
                   );
                 },
               ),
@@ -68,7 +86,7 @@ class AddNewTripWidget7 extends StatelessWidget {
                     style: TextStyle(fontSize: 15),
                   ),
                   onPressed: () {
-                    controller.previousPage(duration: cDuration, curve: cCurve);
+                    widget.controller.previousPage(duration: widget.cDuration, curve: widget.cCurve);
                   },
                 ),
                 SizedBox(
@@ -80,8 +98,11 @@ class AddNewTripWidget7 extends StatelessWidget {
                     style: TextStyle(fontSize: 15),
                   ),
                   onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(TripDetailsScreen.routeName);
+                    Provider.of<TripBuilderService>(context, listen: false).setTransportMode(_selectedTransportMode);
+                    var trip = Provider.of<TripBuilderService>(context, listen: false).trip!;
+                    Provider.of<DatabaseService>(context, listen: false).createTrip(trip);
+                   /* Navigator.of(context)
+                        .pushNamed(TripDetailsScreen.routeName);*/
                   },
                 )
               ],

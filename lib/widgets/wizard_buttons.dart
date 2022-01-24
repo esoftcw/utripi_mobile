@@ -36,10 +36,10 @@ class WizardButtons extends StatelessWidget {
             style: TextStyle(fontSize: 15),
           ),
           onPressed: () {
-            controller.nextPage(duration: cDuration, curve: cCurve);
             if (onPress != null) {
               onPress!();
             }
+            controller.nextPage(duration: cDuration, curve: cCurve);
           },
         )
       ],

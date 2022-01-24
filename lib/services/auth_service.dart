@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:utripi/models/auth/auth_form_oparation.dart';
 
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
   bool _isLoggedIn = false;
   User? _user = null;
-  AuthForm _authForm = AuthForm.Login;
+  AuthFormOperation _authForm = AuthFormOperation.login();
 
   AuthService(this._firebaseAuth) {
     listen();
@@ -16,7 +17,7 @@ class AuthService extends ChangeNotifier {
   User? get user => _user;
   String get userName => _user!.displayName != null ? _user!.displayName! : "";
   String get email => _user!.email!;
-  AuthForm get authForm => _authForm;
+  AuthFormOperation get authForm => _authForm;
 
   Future<void> listen() async {
     _firebaseAuth.userChanges().listen((user) {
@@ -46,16 +47,16 @@ class AuthService extends ChangeNotifier {
   }
 
   void registerForm() {
-    _authForm = AuthForm.Register;
+    _authForm = AuthFormOperation.register();
     notifyListeners();
   }
 
   void loginForm() {
-    _authForm = AuthForm.Login;
+    _authForm = AuthFormOperation.login();
     notifyListeners();
   }
   void resetForm() {
-    _authForm = AuthForm.Reset;
+    _authForm = AuthFormOperation.reset();
     notifyListeners();
   }
 

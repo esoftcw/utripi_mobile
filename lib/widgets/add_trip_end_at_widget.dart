@@ -1,9 +1,12 @@
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
+
 import '/widgets/wizard_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddNewTripWidget3 extends StatefulWidget {
-  AddNewTripWidget3(
+class AddTripEndAtWidget extends StatefulWidget {
+  AddTripEndAtWidget(
       {required this.controller,
       required this.cDuration,
       required this.cCurve});
@@ -13,10 +16,10 @@ class AddNewTripWidget3 extends StatefulWidget {
   var cCurve;
 
   @override
-  State<AddNewTripWidget3> createState() => _AddNewTripWidget3State();
+  State<AddTripEndAtWidget> createState() => _AddTripEndAtWidgetState();
 }
 
-class _AddNewTripWidget3State extends State<AddNewTripWidget3> {
+class _AddTripEndAtWidgetState extends State<AddTripEndAtWidget> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime selectedEndDate = DateTime.now();
@@ -121,7 +124,11 @@ class _AddNewTripWidget3State extends State<AddNewTripWidget3> {
               WizardButtons(
                   controller: widget.controller,
                   cDuration: widget.cDuration,
-                  cCurve: widget.cCurve),
+                  cCurve: widget.cCurve,
+                onPress: () {
+                  Provider.of<TripBuilderService>(context, listen: false).setEndAt(selectedEndDate);
+                },
+              ),
             ],
           ),
         ),

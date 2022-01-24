@@ -1,10 +1,13 @@
+import 'package:provider/provider.dart';
+import 'package:utripi/services/trip_service.dart';
+
 import '/widgets/wizard_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class AddNewTripWidget6 extends StatefulWidget {
-  AddNewTripWidget6(
+class AddTripHeadCountWidget extends StatefulWidget {
+  AddTripHeadCountWidget(
       {required this.controller,
       required this.cDuration,
       required this.cCurve});
@@ -14,10 +17,10 @@ class AddNewTripWidget6 extends StatefulWidget {
   var cCurve;
 
   @override
-  State<AddNewTripWidget6> createState() => _AddNewTripWidget6State();
+  State<AddTripHeadCountWidget> createState() => _AddTripHeadCountWidgetState();
 }
 
-class _AddNewTripWidget6State extends State<AddNewTripWidget6> {
+class _AddTripHeadCountWidgetState extends State<AddTripHeadCountWidget> {
   final _formKey = GlobalKey<FormState>();
 
   int _headCount = 2;
@@ -72,7 +75,11 @@ class _AddNewTripWidget6State extends State<AddNewTripWidget6> {
               WizardButtons(
                   controller: widget.controller,
                   cDuration: widget.cDuration,
-                  cCurve: widget.cCurve),
+                  cCurve: widget.cCurve,
+                onPress: () {
+                  Provider.of<TripBuilderService>(context, listen: false).setHeadCount(_headCount);
+                },
+              ),
             ],
           ),
         ),

@@ -20,7 +20,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details of tripName"),
+        title: Text("Details of Trip"),
         actions: [
           IconButton(
               onPressed: () {

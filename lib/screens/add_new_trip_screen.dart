@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '/widgets/add_new_trip_widget_7.dart';
-import '/widgets/add_new_trip_widget_6.dart';
-import '/widgets/add_new_trip_widget_5.dart';
-import '/widgets/add_new_trip_widget_4.dart';
-import '/widgets/add_new_trip_widget_3.dart';
-import '/widgets/add_new_trip_widget_2.dart';
-import '/widgets/add_new_trip_widget_1.dart';
+import '/widgets/add_trip_transport_mode_widget.dart';
+import '/widgets/add_trip_head_count_widget.dart';
+import '/widgets/add_trip_end_location_widget.dart';
+import '/widgets/add_trip_start_location_widget.dart';
+import '/widgets/add_trip_end_at_widget.dart';
+import '/widgets/add_trip_start_at_widget.dart';
+import '/widgets/add_trip_name_widget.dart';
 
 class AddNewTrip extends StatefulWidget {
   static const routeName = '/add-new-trip';
@@ -33,37 +33,37 @@ class _AddNewTripState extends State<AddNewTrip> {
       body: PageView(
         controller: controller,
         children: [
-          AddNewTripWidget1(
+          AddTripNameWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget2(
+          AddTripStartAtWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget3(
+          AddTripEndAtWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget4(
+          AddStartLocationWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget5(
+          AddTripEndLocationWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget6(
+          AddTripHeadCountWidget(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
           ),
-          AddNewTripWidget7(
+          AddTripTransportMode(
             controller: controller,
             cCurve: cCurve,
             cDuration: cDuration,
